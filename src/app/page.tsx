@@ -1,14 +1,18 @@
-import { loadHome } from "@/lib/loaders"
+import { getHome } from "@/lib/content";
 
-export default function HomePage() {
-  const home = loadHome()
+export default async function Home() {
+  const home = await getHome();
   return (
-    <section className="space-y-6">
-      <h2 className="text-4xl font-heading">{home.heroTitle}</h2>
-      <p className="text-lg">{home.heroSubtitle}</p>
-      <a href="#contact" className="inline-block rounded-xl bg-brand.primary px-5 py-3 text-brand.primaryFg">
-        {home.cta}
+    <main className="container mx-auto p-8 text-center">
+      <h1 className="text-4xl font-bold mb-4">
+        {home?.heroTitle ?? "Treino que transforma"}
+      </h1>
+      <p className="text-lg mb-6">
+        {home?.heroSubtitle ?? "Marca a tua sessão"}
+      </p>
+      <a href="#contact" className="bg-black text-white px-6 py-3 rounded-md">
+        {home?.cta ?? "Contactar"}
       </a>
-    </section>
-  )
+    </main>
+  );
 }

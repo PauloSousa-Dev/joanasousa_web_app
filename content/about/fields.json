@@ -1,0 +1,9 @@
+{
+  "title": "Sobre mim",
+  "body": [
+    {
+      "type": "paragraph",
+      "children": [{ "text": "Personal trainer dedicada a resultados." }]
+    }
+  ]
+}

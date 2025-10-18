@@ -34,20 +34,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## Decap CMS OAuth Setup
-
-- Create a GitHub OAuth App:
-  - Homepage URL: https://<your-vercel-domain>
-  - Authorization callback URL: https://<your-vercel-domain>/api/decap/oauth?action=callback
-- Add environment variables in Vercel Project Settings:
-  - `GITHUB_CLIENT_ID`
-  - `GITHUB_CLIENT_SECRET`
-  - `OAUTH_REDIRECT_URI` (same callback URL)
-- The CMS login button at `/admin` uses GitHub OAuth via `/api/decap/oauth?action=authorize`.
-
-## Package Manager
-
-- Local: npm (use `npm run dev`, `npm run build`)
-- CI (Vercel): `npm ci` then `npm run build`
-- Remove pnpm usage. Lockfile: package-lock.json
