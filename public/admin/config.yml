@@ -2,14 +2,16 @@ local_backend: false
 
 backend:
   name: github
+  repo: PauloSousa-Dev/joanasousa_web_app
   branch: main
-  base_url: ""          # not used when giving full auth_endpoint path
   auth_endpoint: "/api/decap/oauth?action=authorize"
+
+publish_mode: editorial_workflow
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-# keep your existing collections: block as-is below this line
+# (leave the existing `collections:` block exactly as it is below this line)
 
 collections:
   - name: home
