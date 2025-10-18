@@ -45,3 +45,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
   - `GITHUB_CLIENT_SECRET`
   - `OAUTH_REDIRECT_URI` (same callback URL)
 - The CMS login button at `/admin` uses GitHub OAuth via `/api/decap/oauth?action=authorize`.
+
+## Package Manager
+
+- Local: npm (use `npm run dev`, `npm run build`)
+- CI (Vercel): `npm ci` then `npm run build`
+- Remove pnpm usage. Lockfile: package-lock.json
