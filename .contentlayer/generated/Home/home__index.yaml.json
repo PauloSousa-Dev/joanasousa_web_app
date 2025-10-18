@@ -1,0 +1,15 @@
+{
+  "title": "Home",
+  "heroTitle": "Treino que transforma",
+  "heroSubtitle": "Marca a tua sessão",
+  "cta": "Contactar",
+  "_id": "home/index.yaml",
+  "_raw": {
+    "sourceFilePath": "home/index.yaml",
+    "sourceFileName": "index.yaml",
+    "sourceFileDir": "home",
+    "contentType": "data",
+    "flattenedPath": "home"
+  },
+  "type": "Home"
+}

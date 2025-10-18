@@ -1,0 +1,67 @@
+local_backend: false
+
+backend:
+  name: github
+  branch: main
+  base_url: ""          # not used when giving full auth_endpoint path
+  auth_endpoint: "/api/decap/oauth?action=authorize"
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+# keep your existing collections: block as-is below this line
+
+collections:
+  - name: home
+    label: Home
+    files:
+      - file: content/home/index.yaml
+        label: Home
+        name: home
+        format: yaml
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Hero Title", name: "heroTitle", widget: "string" }
+          - { label: "Hero Subtitle", name: "heroSubtitle", widget: "string" }
+          - { label: "CTA", name: "cta", widget: "string" }
+
+  - name: about
+    label: About
+    folder: content/pages/about
+    create: true
+    format: frontmatter
+    extension: mdx
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: gallery
+    label: Gallery
+    folder: content/gallery
+    create: true
+    format: yaml
+    extension: yml
+    slug: "{{fields.title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: Items
+        name: items
+        widget: list
+        fields:
+          - { label: "Image", name: "image", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string" }
+
+  - name: pricing
+    label: Pricing
+    folder: content/pricing
+    create: true
+    format: frontmatter
+    extension: md
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "markdown" }
+      - { label: "Price", name: "price", widget: "string" }
+      - { label: "Duration", name: "duration", widget: "string" }
