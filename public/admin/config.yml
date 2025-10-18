@@ -4,7 +4,7 @@ backend:
   name: github
   repo: PauloSousa-Dev/joanasousa_web_app
   branch: main
-  auth_endpoint: "/api/decap/oauth?action=authorize"
+  auth_endpoint: /api/decap/oauth?action=authorize
 
 publish_mode: editorial_workflow
 

@@ -1,68 +1,57 @@
 export const runtime = "nodejs"
 
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse, type NextRequest } from "next/server"
 
-function html(body: string) {
-  return new Response(body, {
-    headers: { "Content-Type": "text/html; charset=utf-8" },
-  })
+const CLIENT_ID = process.env.GITHUB_CLIENT_ID!
+const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET!
+
+function baseUrl(req: NextRequest) {
+  // Vercel define VERCEL_URL sem protocolo
+  const vercel = process.env.VERCEL_URL
+  if (vercel) return `https://${vercel}`
+  const u = new URL(req.url)
+  return `${u.protocol}//${u.host}`
 }
 
-export async function GET(req: NextRequest) {
-  const url = new URL(req.url)
-  const action = url.searchParams.get("action")
-  const clientId = process.env.GITHUB_CLIENT_ID!
-  const clientSecret = process.env.GITHUB_CLIENT_SECRET!
-  const redirectUri =
-    process.env.OAUTH_REDIRECT_URI ||
-    `${url.origin}/api/decap/oauth?action=callback`
-  const scope = process.env.OAUTH_SCOPE || "repo,user:email"
+const AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
+const TOKEN_URL = "https://github.com/login/oauth/access_token"
 
-  if (action === "authorize") {
-    const state = crypto.randomUUID()
-    const authUrl = new URL("https://github.com/login/oauth/authorize")
-    authUrl.searchParams.set("client_id", clientId)
-    authUrl.searchParams.set("redirect_uri", redirectUri)
-    authUrl.searchParams.set("scope", scope)
-    authUrl.searchParams.set("state", state)
-    return NextResponse.redirect(authUrl)
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const action = searchParams.get("action")
+
+  if (action === "authorize" || action === null) {
+    const redirect_uri = `${baseUrl(req)}/api/decap/oauth?action=callback`
+    const url = new URL(AUTHORIZE_URL)
+    url.searchParams.set("client_id", CLIENT_ID)
+    url.searchParams.set("redirect_uri", redirect_uri)
+    url.searchParams.set("scope", "repo,user:email")
+    return NextResponse.redirect(url)
   }
 
   if (action === "callback") {
-    const code = url.searchParams.get("code") || ""
-    const resp = await fetch("https://github.com/login/oauth/access_token", {
+    const code = searchParams.get("code")
+    if (!code) return NextResponse.json({ error: "Missing code" }, { status: 400 })
+
+    const res = await fetch(TOKEN_URL, {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+      headers: { Accept: "application/json", "Content-Type": "application/json" },
       body: JSON.stringify({
-        client_id: clientId,
-        client_secret: clientSecret,
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
         code,
-        redirect_uri: redirectUri,
       }),
     })
-    const data = await resp.json()
-    const token = data.access_token || ""
-    const page = `
-<!doctype html><html><body>
-<script>
-  (function(){
-    function send(msg){ if (window.opener && !window.opener.closed) { window.opener.postMessage(msg, "*"); } }
-    var token = ${JSON.stringify(token)};
-    if(token){ send({ token: token, provider: "github" }); }
-    window.close();
-  })();
-</script>
-Fechar esta janela.
-</body></html>`
-    return html(page)
+    const data = await res.json()
+    const token = data.access_token
+    if (!token) return NextResponse.json({ error: "OAuth failed", data }, { status: 400 })
+
+    // Entrega o token ao Decap CMS (hash route)
+    const admin = `${baseUrl(req)}/admin/#/?token=${token}`
+    return NextResponse.redirect(admin)
   }
 
-  if (action === "token") {
-    return NextResponse.json({ ok: true })
-  }
-
-  return NextResponse.json({ error: "Unknown action" }, { status: 400 })
+  return NextResponse.json({ error: "Invalid action" }, { status: 400 })
 }
+
+export const POST = GET
