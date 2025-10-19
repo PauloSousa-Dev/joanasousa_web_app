@@ -1,10 +1,16 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 export default config({
-  storage: {
-    kind: "github",
-    repo: { owner: "PauloSousa-Dev", name: "joanasousa_web_app" },
-  },
+  storage: isDevelopment
+    ? {
+        kind: "local",
+      }
+    : {
+        kind: "github",
+        repo: { owner: "PauloSousa-Dev", name: "joanasousa_web_app" },
+      },
   ui: { brand: { name: "Joana Sousa Centro de Treino" } },
   singletons: {
     siteSettings: singleton({
@@ -309,7 +315,7 @@ export default config({
       label: "Galeria - Imagens",
       path: "content/gallery/*",
       slugField: "title",
-      format: { data: "json" },
+      format: { data: "yaml" },
       schema: {
         title: fields.text({ label: "Título da Imagem" }),
         order: fields.number({
