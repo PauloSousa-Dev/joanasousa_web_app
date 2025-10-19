@@ -9,10 +9,21 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/keystatic") ||
     pathname.startsWith("/api/keystatic")
   ) {
+    // Safety check: if password is not configured, deny access
+    const keystacticPassword = process.env.KEYSTATIC_PASSWORD;
+    if (!keystacticPassword) {
+      return new NextResponse(
+        "Keystatic not configured (missing KEYSTATIC_PASSWORD)",
+        {
+          status: 503,
+        }
+      );
+    }
+
     // Check for authentication cookie
     const authCookie = request.cookies.get("keystatic-auth");
 
-    if (authCookie?.value === process.env.KEYSTATIC_PASSWORD) {
+    if (authCookie?.value === keystacticPassword) {
       return NextResponse.next();
     }
 
@@ -25,7 +36,7 @@ export function middleware(request: NextRequest) {
           .toString()
           .split(":");
 
-        if (password === process.env.KEYSTATIC_PASSWORD) {
+        if (password === keystacticPassword) {
           // Set auth cookie for 24 hours
           const response = NextResponse.next();
           response.cookies.set("keystatic-auth", password, {
