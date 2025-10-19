@@ -1,19 +1,10 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
 
-const isProd = process.env.NODE_ENV === "production";
-const hasGitHubConfig =
-  process.env.KEYSTATIC_SECRET || process.env.KEYSTATIC_GITHUB_TOKEN;
-
 export default config({
-  storage:
-    isProd && hasGitHubConfig
-      ? {
-          kind: "github",
-          repo: { owner: "PauloSousa-Dev", name: "joanasousa_web_app" },
-        }
-      : {
-          kind: "local",
-        },
+  storage: {
+    kind: "github",
+    repo: { owner: "PauloSousa-Dev", name: "joanasousa_web_app" },
+  },
   ui: { brand: { name: "Joana Sousa Centro de Treino" } },
   singletons: {
     siteSettings: singleton({
