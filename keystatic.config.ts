@@ -2,7 +2,8 @@ import { config, fields, collection, singleton } from "@keystatic/core";
 
 export default config({
   storage: {
-    kind: "local",
+    kind: "github",
+    repo: { owner: "PauloSousa-Dev", name: "joanasousa_web_app" },
   },
   ui: { brand: { name: "Joana Sousa Centro de Treino" } },
   singletons: {
@@ -250,6 +251,7 @@ export default config({
       label: "Planos de Preços",
       path: "content/pricing/*",
       slugField: "name",
+      format: { data: "json" },
       schema: {
         name: fields.text({ label: "Nome do Plano" }),
         price: fields.text({ label: "Preço (ex: 50€)" }),
@@ -307,6 +309,7 @@ export default config({
       label: "Galeria - Imagens",
       path: "content/gallery/*",
       slugField: "title",
+      format: { data: "json" },
       schema: {
         title: fields.text({ label: "Título da Imagem" }),
         order: fields.number({
@@ -338,6 +341,7 @@ export default config({
       label: "Aulas",
       path: "content/classes/*",
       slugField: "name",
+      format: { data: "json" },
       schema: {
         name: fields.text({ label: "Nome da Aula" }),
         type: fields.select({
@@ -378,6 +382,7 @@ export default config({
       label: "📋 Características (About)",
       path: "content/features/*",
       slugField: "title",
+      format: { data: "json" },
       schema: {
         title: fields.text({ label: "Título" }),
         description: fields.text({
@@ -406,6 +411,7 @@ export default config({
       label: "💬 Testemunhos",
       path: "content/testimonials/*",
       slugField: "name",
+      format: { data: "json" },
       schema: {
         name: fields.text({
           label: "Nome do Cliente",
@@ -430,6 +436,7 @@ export default config({
       label: "🧭 Menu de Navegação",
       path: "content/navigation/*",
       slugField: "name",
+      format: { data: "json" },
       schema: {
         name: fields.text({
           label: "Nome do Link",
