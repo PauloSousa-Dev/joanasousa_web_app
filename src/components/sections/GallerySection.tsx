@@ -98,7 +98,7 @@ export default function GallerySection({
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" as const },
     },
   };
 
@@ -115,7 +115,9 @@ export default function GallerySection({
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent mb-6">
             {title}
           </h2>
-          <p className="text-xl text-secondary font-semibold mb-4">{subtitle}</p>
+          <p className="text-xl text-secondary font-semibold mb-4">
+            {subtitle}
+          </p>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             {description}
           </p>
@@ -153,15 +155,21 @@ export default function GallerySection({
                     <h3 className="text-base sm:text-lg font-bold text-gray-700 mb-1">
                       {image.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-gray-500">{image.alt}</p>
+                    <p className="text-xs sm:text-sm text-gray-500">
+                      {image.alt}
+                    </p>
                   </div>
                 </div>
 
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white">
-                    <h3 className="text-lg sm:text-xl font-bold mb-1">{image.title}</h3>
-                    <p className="text-xs sm:text-sm text-white/90">{image.alt}</p>
+                    <h3 className="text-lg sm:text-xl font-bold mb-1">
+                      {image.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-white/90">
+                      {image.alt}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -201,7 +209,7 @@ export default function GallerySection({
             >
               {/* Quote Icon */}
               <div className="absolute -top-4 left-8 w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-white text-3xl font-serif">"</span>
+                <span className="text-white text-3xl font-serif">&ldquo;</span>
               </div>
 
               <div className="pt-8">
