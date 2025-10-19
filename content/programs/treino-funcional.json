@@ -1,0 +1,11 @@
+{
+  "title": "Treino Funcional",
+  "description": "Exercícios que melhoram a força, flexibilidade e movimento natural do corpo",
+  "icon": "Dumbbell",
+  "benefits": [
+    "Melhora da postura",
+    "Aumento de força",
+    "Prevenção de lesões"
+  ],
+  "order": 1
+}

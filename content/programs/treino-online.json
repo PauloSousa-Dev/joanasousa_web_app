@@ -1,0 +1,11 @@
+{
+  "title": "Treino Online",
+  "description": "Acompanhamento à distância com planos personalizados",
+  "icon": "Activity",
+  "benefits": [
+    "Flexibilidade horária",
+    "Treino em casa",
+    "Suporte contínuo"
+  ],
+  "order": 5
+}

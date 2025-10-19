@@ -1,5 +1,8 @@
-import { makePage } from "@keystatic/next/ui/app";
+"use client";
+
+import { Keystatic } from "@keystatic/core/ui";
 import config from "../../../../keystatic.config";
 
-export const dynamic = "force-dynamic";
-export default makePage(config);
+export default function KeystaticPage() {
+  return <Keystatic config={config} />;
+}

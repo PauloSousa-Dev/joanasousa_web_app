@@ -1,0 +1,11 @@
+{
+  "title": "Treino Terapêutico",
+  "description": "Programa especializado para reabilitação e recuperação física",
+  "icon": "HeartPulse",
+  "benefits": [
+    "Recuperação pós-lesão",
+    "Alívio de dores",
+    "Mobilidade articular"
+  ],
+  "order": 2
+}

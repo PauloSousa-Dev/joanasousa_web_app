@@ -1,0 +1,11 @@
+{
+  "title": "Consultoria Fitness",
+  "description": "Avaliação completa e planeamento nutricional integrado",
+  "icon": "Sparkles",
+  "benefits": [
+    "Avaliação física",
+    "Plano alimentar",
+    "Objetivos definidos"
+  ],
+  "order": 6
+}

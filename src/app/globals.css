@@ -2,25 +2,99 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0A2540;
+
+  /* Brand Colors - Joana Sousa Treino Terapêutico */
+  --color-primary: #00D4D4; /* Turquoise/Cyan */
+  --color-primary-light: #33E0E0;
+  --color-primary-dark: #00A8A8;
+  --color-secondary: #0A2540; /* Navy Blue */
+  --color-secondary-light: #1A3A5C;
+  --color-secondary-dark: #051220;
+  --color-accent: #14B8A6; /* Teal accent */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  /* Colors */
+  --color-primary-50: #E6FAFA;
+  --color-primary-100: #CCFAFA;
+  --color-primary-200: #99F5F5;
+  --color-primary-300: #66F0F0;
+  --color-primary-400: #33E0E0;
+  --color-primary: #00D4D4;  /* Main turquoise - default */
+  --color-primary-500: #00D4D4;
+  --color-primary-600: #00A8A8;
+  --color-primary-700: #007D7D;
+  --color-primary-800: #005252;
+  --color-primary-900: #002626;
+  --color-primary-950: #001313;
+
+  --color-secondary-50: #E8EBF0;
+  --color-secondary-100: #D1D7E0;
+  --color-secondary-200: #A3AFC2;
+  --color-secondary-300: #7588A3;
+  --color-secondary-400: #476085;
+  --color-secondary: #0A2540;  /* Main navy - default */
+  --color-secondary-500: #0A2540;
+  --color-secondary-600: #091E33;
+  --color-secondary-700: #071726;
+  --color-secondary-800: #05101A;
+  --color-secondary-900: #02080D;
+  --color-secondary-950: #010407;
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* Account for fixed header */
+}
+
+/* Better scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Light mode only - override dark mode preference for this site */
+:root {
+  --background: #ffffff;
+  --foreground: #0A2540;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
