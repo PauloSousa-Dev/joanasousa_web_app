@@ -4,15 +4,25 @@ import { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const navItems = [
-  { name: "Início", href: "#home" },
-  { name: "Sobre Mim", href: "#about" },
-  { name: "Galeria", href: "#gallery" },
-  { name: "Aulas", href: "#schedule" },
-  { name: "Contacto", href: "#contact" },
-];
+interface NavItem {
+  name: string;
+  href: string;
+}
 
-export default function Header() {
+interface HeaderProps {
+  navItems?: NavItem[];
+}
+
+export default function Header({ navItems = [] }: HeaderProps) {
+  const defaultNavItems = [
+    { name: "Início", href: "#home" },
+    { name: "Sobre Mim", href: "#about" },
+    { name: "Galeria", href: "#gallery" },
+    { name: "Aulas", href: "#schedule" },
+    { name: "Contacto", href: "#contact" },
+  ];
+
+  const displayNavItems = navItems.length > 0 ? navItems : defaultNavItems;
   const [hidden, setHidden] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -93,7 +103,7 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <ul className="hidden md:flex items-center gap-8">
-              {navItems.map(({ name, href }) => (
+              {displayNavItems.map(({ name, href }) => (
                 <li key={href}>
                   <a
                     href={href}
@@ -157,7 +167,7 @@ export default function Header() {
       >
         <div className="flex flex-col h-full pt-24 px-6">
           <ul className="flex flex-col gap-6">
-            {navItems.map(({ name, href }, index) => (
+            {displayNavItems.map(({ name, href }, index) => (
               <motion.li
                 key={href}
                 initial={{ opacity: 0, x: 20 }}

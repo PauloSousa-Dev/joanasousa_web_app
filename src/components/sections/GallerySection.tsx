@@ -2,86 +2,65 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Image from "next/image";
+
+interface GalleryImage {
+  title: string;
+  alt: string;
+  aspect: "tall" | "wide" | "square";
+  image?: string;
+}
+
+interface Testimonial {
+  name: string;
+  role: string;
+  quote: string;
+}
 
 interface GallerySectionProps {
   title?: string;
   subtitle?: string;
   description?: string;
+  images?: GalleryImage[];
+  testimonials?: Testimonial[];
 }
-
-const galleryImages = [
-  {
-    title: "Treino Funcional",
-    alt: "Sessão de treino funcional",
-    aspect: "tall", // tall, wide, square
-  },
-  {
-    title: "Treino em Grupo",
-    alt: "Aula em grupo",
-    aspect: "wide",
-  },
-  {
-    title: "Treino Terapêutico",
-    alt: "Exercícios de reabilitação",
-    aspect: "square",
-  },
-  {
-    title: "Treino Personalizado",
-    alt: "Acompanhamento individual",
-    aspect: "tall",
-  },
-  {
-    title: "Consultoria Fitness",
-    alt: "Avaliação física",
-    aspect: "wide",
-  },
-  {
-    title: "Treino Online",
-    alt: "Sessão online",
-    aspect: "square",
-  },
-  {
-    title: "Stretching",
-    alt: "Alongamentos",
-    aspect: "tall",
-  },
-  {
-    title: "Equipamentos",
-    alt: "Material de treino",
-    aspect: "wide",
-  },
-];
-
-const testimonials = [
-  {
-    name: "Maria Silva",
-    role: "Treino Terapêutico",
-    quote:
-      "Após 3 meses de treino terapêutico, consegui recuperar completamente da lesão no joelho. A Joana é uma profissional excecional!",
-  },
-  {
-    name: "João Santos",
-    role: "Treino Funcional",
-    quote:
-      "Perdi 15kg e ganhei uma nova perspetiva de vida. O acompanhamento personalizado fez toda a diferença.",
-  },
-  {
-    name: "Ana Costa",
-    role: "Treino em Grupo",
-    quote:
-      "A energia das aulas em grupo é incrível! Sinto-me mais forte e confiante a cada treino.",
-  },
-];
 
 export default function GallerySection({
   title = "Galeria",
   subtitle = "As Nossas Aulas",
   description = "Vê como são as nossas sessões de treino e o ambiente de trabalho.",
+  images = [],
+  testimonials = [],
 }: GallerySectionProps) {
+  const defaultTestimonials = [
+    {
+      name: "Maria Silva",
+      role: "Treino Terapêutico",
+      quote:
+        "Após 3 meses de treino terapêutico, consegui recuperar completamente da lesão no joelho. A Joana é uma profissional excecional!",
+    },
+    {
+      name: "João Santos",
+      role: "Treino Funcional",
+      quote:
+        "Perdi 15kg e ganhei uma nova perspetiva de vida. O acompanhamento personalizado fez toda a diferença.",
+    },
+    {
+      name: "Ana Costa",
+      role: "Treino em Grupo",
+      quote:
+        "A energia das aulas em grupo é incrível! Sinto-me mais forte e confiante a cada treino.",
+    },
+  ];
+
+  const displayTestimonials =
+    testimonials.length > 0 ? testimonials : defaultTestimonials;
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const galleryImages = images;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -132,34 +111,45 @@ export default function GallerySection({
         animate={inView ? "visible" : "hidden"}
         className="w-full px-4 sm:px-6 lg:px-8"
       >
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-[200px]">
           {galleryImages.map((image, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              className="break-inside-avoid mb-4"
+              className={`${
+                image.aspect === "tall"
+                  ? "row-span-2"
+                  : image.aspect === "wide"
+                  ? "col-span-1 row-span-1"
+                  : "row-span-1"
+              }`}
             >
-              <div
-                className={`group relative w-full rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer ${
-                  image.aspect === "tall"
-                    ? "aspect-[3/4]"
-                    : image.aspect === "wide"
-                    ? "aspect-[4/3]"
-                    : "aspect-square"
-                }`}
-              >
-                {/* Placeholder for real images */}
-                <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gradient-to-br from-primary/10 to-secondary/10">
-                  <div className="text-center p-4 sm:p-6">
-                    <div className="text-4xl sm:text-6xl mb-2 sm:mb-4">📸</div>
-                    <h3 className="text-base sm:text-lg font-bold text-gray-700 mb-1">
-                      {image.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-gray-500">
-                      {image.alt}
-                    </p>
+              <div className="group relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer">
+                {image.image ? (
+                  // Real image from Keystatic
+                  <Image
+                    src={image.image}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                    className="object-cover"
+                  />
+                ) : (
+                  // Placeholder when no image
+                  <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gradient-to-br from-primary/10 to-secondary/10">
+                    <div className="text-center p-4 sm:p-6">
+                      <div className="text-4xl sm:text-6xl mb-2 sm:mb-4">
+                        📸
+                      </div>
+                      <h3 className="text-base sm:text-lg font-bold text-gray-700 mb-1">
+                        {image.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-gray-500">
+                        {image.alt}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -200,7 +190,7 @@ export default function GallerySection({
           animate={inView ? "visible" : "hidden"}
           className="grid md:grid-cols-3 gap-8"
         >
-          {testimonials.map((testimonial, index) => (
+          {displayTestimonials.map((testimonial, index) => (
             <motion.div
               key={index}
               variants={itemVariants}

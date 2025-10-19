@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
+import { getSiteSettings } from "@/lib/content";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,12 +14,24 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Joana Sousa - Treino Terapêutico | Lisboa",
-  description: "Especialista em Treino Terapêutico com mais de 10 anos de experiência. Treinos personalizados focados na tua saúde e bem-estar. Descobre o poder do movimento consciente!",
-  keywords: ["treino terapêutico", "personal training", "fitness", "Lisboa", "treino personalizado", "reabilitação", "bem-estar"],
-  authors: [{ name: "Joana Sousa" }],
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings();
+
+  return {
+    title:
+      siteSettings?.seoTitle || "Joana Sousa - Treino Terapêutico | Lisboa",
+    description:
+      siteSettings?.seoDescription ||
+      "Especialista em Treino Terapêutico com mais de 10 anos de experiência.",
+    keywords: siteSettings?.seoKeywords?.split(",").map((k) => k.trim()) || [
+      "treino terapêutico",
+      "personal training",
+      "fitness",
+      "Lisboa",
+    ],
+    authors: [{ name: siteSettings?.siteName || "Joana Sousa" }],
+  };
+}
 
 export const viewport = {
   width: "device-width",

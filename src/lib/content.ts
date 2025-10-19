@@ -4,6 +4,7 @@ import keystaticConfig from "../../keystatic.config";
 const reader = createReader(process.cwd(), keystaticConfig);
 
 // Singletons
+export const getSiteSettings = () => reader.singletons.siteSettings.read();
 export const getHome = () => reader.singletons.home.read();
 export const getAbout = () => reader.singletons.about.read();
 export const getGallerySettings = () => reader.singletons.gallery.read();
@@ -21,4 +22,16 @@ export const getProgramItems = async () => {
   const programs = await reader.collections.programItems.all();
   // Sort by order field
   return programs.sort((a, b) => (a.entry.order || 0) - (b.entry.order || 0));
+};
+
+export const getTestimonials = async () => {
+  const testimonials = await reader.collections.testimonials.all();
+  return testimonials.sort(
+    (a, b) => (a.entry.order || 0) - (b.entry.order || 0)
+  );
+};
+
+export const getNavigation = async () => {
+  const navItems = await reader.collections.navigation.all();
+  return navItems.sort((a, b) => (a.entry.order || 0) - (b.entry.order || 0));
 };

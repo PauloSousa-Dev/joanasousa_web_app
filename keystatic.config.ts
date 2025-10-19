@@ -16,6 +16,46 @@ export default config({
         },
   ui: { brand: { name: "Joana Sousa Centro de Treino" } },
   singletons: {
+    siteSettings: singleton({
+      path: "content/site-settings",
+      label: "⚙️ Configurações do Site",
+      format: { data: "json" },
+      schema: {
+        siteName: fields.text({
+          label: "Nome do Site",
+          defaultValue: "Joana Sousa",
+        }),
+        seoTitle: fields.text({
+          label: "SEO - Título",
+          defaultValue: "Joana Sousa - Treino Terapêutico | Lisboa",
+        }),
+        seoDescription: fields.text({
+          label: "SEO - Descrição",
+          multiline: true,
+          defaultValue:
+            "Especialista em Treino Terapêutico com mais de 10 anos de experiência.",
+        }),
+        seoKeywords: fields.text({
+          label: "SEO - Keywords (separadas por vírgula)",
+          defaultValue:
+            "treino terapêutico, personal training, fitness, Lisboa",
+        }),
+        footerBrandText: fields.text({
+          label: "Footer - Texto da Marca",
+          multiline: true,
+          defaultValue:
+            "Personal trainer dedicada a ajudar-te a alcançar os teus objetivos de fitness e bem-estar.",
+        }),
+        copyrightText: fields.text({
+          label: "Footer - Texto de Copyright",
+          defaultValue: "Joana Sousa",
+        }),
+        copyrightNote: fields.text({
+          label: "Footer - Nota (ex: Feito com ❤️ por...)",
+          defaultValue: "Paulo Sousa",
+        }),
+      },
+    }),
     home: singleton({
       path: "content/home",
       label: "Home",
@@ -279,26 +319,27 @@ export default config({
       slugField: "title",
       schema: {
         title: fields.text({ label: "Título da Imagem" }),
-        category: fields.select({
-          label: "Categoria",
+        order: fields.number({
+          label: "📊 Ordem de Exibição (0 = primeiro)",
+          defaultValue: 0,
+          validation: { isRequired: false },
+        }),
+        aspect: fields.select({
+          label: "📐 Formato/Orientação (para layout masonry)",
           options: [
-            { label: "Treinos", value: "workout" },
-            { label: "Força", value: "strength" },
-            { label: "Cardio", value: "cardio" },
-            { label: "Flexibilidade", value: "flexibility" },
-            { label: "Grupo", value: "group" },
-            { label: "Personal", value: "personal" },
-            { label: "Nutrição", value: "nutrition" },
-            { label: "Resultados", value: "results" },
+            { label: "📱 Alto (Retrato 3:4)", value: "tall" },
+            { label: "🖼️ Largo (Paisagem 4:3)", value: "wide" },
+            { label: "⬛ Quadrado (1:1)", value: "square" },
           ],
-          defaultValue: "workout",
+          defaultValue: "square",
         }),
         image: fields.image({
-          label: "Imagem",
+          label: "📸 Imagem (opcional - se vazio, mostra placeholder)",
           directory: "public/images/gallery",
+          validation: { isRequired: false },
         }),
         alt: fields.text({
-          label: "Texto Alternativo (Alt)",
+          label: "🏷️ Texto Alternativo (Alt)",
           defaultValue: "Imagem de treino",
         }),
       },
@@ -344,7 +385,7 @@ export default config({
       },
     }),
     features: collection({
-      label: "Características (About)",
+      label: "📋 Características (About)",
       path: "content/features/*",
       slugField: "title",
       schema: {
@@ -364,6 +405,61 @@ export default config({
             { label: "Activity", value: "Activity" },
           ],
           defaultValue: "Award",
+        }),
+        order: fields.number({
+          label: "Ordem de Exibição",
+          defaultValue: 0,
+        }),
+      },
+    }),
+    testimonials: collection({
+      label: "💬 Testemunhos",
+      path: "content/testimonials/*",
+      slugField: "name",
+      schema: {
+        name: fields.text({
+          label: "Nome do Cliente",
+          validation: { isRequired: true },
+        }),
+        role: fields.text({
+          label: "Tipo de Treino",
+          defaultValue: "Cliente",
+        }),
+        quote: fields.text({
+          label: "Testemunho",
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        order: fields.number({
+          label: "Ordem de Exibição",
+          defaultValue: 0,
+        }),
+      },
+    }),
+    navigation: collection({
+      label: "🧭 Menu de Navegação",
+      path: "content/navigation/*",
+      slugField: "name",
+      schema: {
+        name: fields.text({
+          label: "Nome do Link",
+          validation: { isRequired: true },
+        }),
+        href: fields.text({
+          label: "Âncora (ex: #home, #about)",
+          validation: { isRequired: true },
+        }),
+        order: fields.number({
+          label: "Ordem no Menu",
+          defaultValue: 0,
+        }),
+        showInHeader: fields.checkbox({
+          label: "Mostrar no Header",
+          defaultValue: true,
+        }),
+        showInFooter: fields.checkbox({
+          label: "Mostrar no Footer",
+          defaultValue: true,
         }),
       },
     }),

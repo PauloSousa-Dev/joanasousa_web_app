@@ -2,8 +2,22 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Award, Heart, Target, TrendingUp } from "lucide-react";
+import {
+  Award,
+  Heart,
+  Target,
+  TrendingUp,
+  Dumbbell,
+  Activity,
+  LucideIcon,
+} from "lucide-react";
 import VideoPlayer from "@/components/ui/VideoPlayer";
+
+interface Feature {
+  title: string;
+  description: string;
+  icon: string;
+}
 
 interface AboutSectionProps {
   title?: string;
@@ -15,7 +29,17 @@ interface AboutSectionProps {
   videoWebm?: string;
   videoMp4?: string;
   videoPoster?: string;
+  features?: Feature[];
 }
+
+const iconMap: Record<string, LucideIcon> = {
+  Award,
+  Target,
+  Heart,
+  TrendingUp,
+  Dumbbell,
+  Activity,
+};
 
 export default function AboutSection({
   title = "Sobre Mim",
@@ -27,34 +51,37 @@ export default function AboutSection({
   videoWebm,
   videoMp4,
   videoPoster,
+  features = [],
 }: AboutSectionProps) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  const features = [
+  const defaultFeatures = [
     {
-      icon: Award,
       title: "Certificação Profissional",
       description: "Formação especializada e certificações internacionais",
+      icon: "Award",
     },
     {
-      icon: Target,
       title: "Treino Personalizado",
       description: "Programas adaptados aos teus objetivos específicos",
+      icon: "Target",
     },
     {
-      icon: Heart,
       title: "Acompanhamento Total",
       description: "Suporte contínuo dentro e fora do ginásio",
+      icon: "Heart",
     },
     {
-      icon: TrendingUp,
       title: "Resultados Comprovados",
       description: "Histórico de sucesso com centenas de alunos",
+      icon: "TrendingUp",
     },
   ];
+
+  const displayFeatures = features.length > 0 ? features : defaultFeatures;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -199,24 +226,27 @@ export default function AboutSection({
           variants={containerVariants}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ y: -8, transition: { duration: 0.2 } }}
-              className="group p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-200 hover:border-[var(--color-primary)] hover:shadow-xl transition-all"
-            >
-              <div className="w-12 h-12 rounded-xl bg-[var(--color-secondary)] text-white flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[var(--color-primary)] transition-all">
-                <feature.icon size={24} />
-              </div>
-              <h3 className="text-lg font-semibold text-[var(--color-secondary)] mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {feature.description}
-              </p>
-            </motion.div>
-          ))}
+          {displayFeatures.map((feature, index) => {
+            const IconComponent = iconMap[feature.icon] || Award;
+            return (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className="group p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-200 hover:border-[var(--color-primary)] hover:shadow-xl transition-all"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[var(--color-secondary)] text-white flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[var(--color-primary)] transition-all">
+                  <IconComponent size={24} />
+                </div>
+                <h3 className="text-lg font-semibold text-[var(--color-secondary)] mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {feature.description}
+                </p>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </motion.div>
     </section>

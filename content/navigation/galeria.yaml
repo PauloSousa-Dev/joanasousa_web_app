@@ -1,0 +1,5 @@
+name: Galeria
+href: "#gallery"
+order: 2
+showInHeader: true
+showInFooter: true
