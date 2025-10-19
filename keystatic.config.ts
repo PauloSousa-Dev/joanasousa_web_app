@@ -2,8 +2,7 @@ import { config, fields, collection, singleton } from "@keystatic/core";
 
 export default config({
   storage: {
-    kind: "github",
-    repo: { owner: "PauloSousa-Dev", name: "joanasousa_web_app" },
+    kind: "local",
   },
   ui: { brand: { name: "Joana Sousa Centro de Treino" } },
   singletons: {
