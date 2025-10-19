@@ -36,7 +36,7 @@ export default function HeroSection({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" as const },
     },
   };
 
@@ -145,7 +145,10 @@ export default function HeroSection({
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Play size={20} className="fill-[var(--color-secondary)] group-hover:fill-white transition-colors" />
+            <Play
+              size={20}
+              className="fill-[var(--color-secondary)] group-hover:fill-white transition-colors"
+            />
             Ver Treinos
           </motion.button>
         </motion.div>

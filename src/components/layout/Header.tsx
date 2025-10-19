@@ -20,7 +20,7 @@ export default function Header() {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
-    if (latest > previous && latest > 150) {
+    if (previous !== undefined && latest > previous && latest > 150) {
       setHidden(true);
     } else {
       setHidden(false);
@@ -55,7 +55,10 @@ export default function Header() {
     return () => observer.disconnect();
   }, []);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     e.preventDefault();
     const element = document.querySelector(href);
     if (element) {
@@ -106,7 +109,11 @@ export default function Header() {
                       <motion.span
                         layoutId="activeSection"
                         className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 30,
+                        }}
                       />
                     )}
                   </a>
@@ -154,7 +161,9 @@ export default function Header() {
               <motion.li
                 key={href}
                 initial={{ opacity: 0, x: 20 }}
-                animate={mobileMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+                animate={
+                  mobileMenuOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }
+                }
                 transition={{ delay: index * 0.1 }}
               >
                 <a
@@ -177,7 +186,9 @@ export default function Header() {
             onClick={(e) => handleClick(e, "#contact")}
             className="mt-8 px-6 py-3 bg-primary text-white rounded-full text-center font-medium shadow-lg shadow-primary/30"
             initial={{ opacity: 0, y: 20 }}
-            animate={mobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            animate={
+              mobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+            }
             transition={{ delay: 0.5 }}
           >
             Marcar Aula

@@ -20,23 +20,30 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   // Fetch all content from Keystatic
-  const [home, about, gallerySettings, scheduleSettings, programsSettings, programItems, contact] =
-    await Promise.all([
-      getHome(),
-      getAbout(),
-      getGallerySettings(),
-      getScheduleSettings(),
-      getProgramsSettings(),
-      getProgramItems(),
-      getContact(),
-    ]);
+  const [
+    home,
+    about,
+    gallerySettings,
+    scheduleSettings,
+    programsSettings,
+    programItems,
+    contact,
+  ] = await Promise.all([
+    getHome(),
+    getAbout(),
+    getGallerySettings(),
+    getScheduleSettings(),
+    getProgramsSettings(),
+    getProgramItems(),
+    getContact(),
+  ]);
 
   // Transform program items for component
   const programs = programItems.map((item) => ({
-    title: item.entry.title,
-    description: item.entry.description,
+    title: item.entry.title ?? "",
+    description: item.entry.description ?? "",
     icon: item.entry.icon,
-    benefits: item.entry.benefits,
+    benefits: [...item.entry.benefits],
   }));
 
   return (
@@ -54,7 +61,7 @@ export default async function Home() {
           description={about?.description}
           bio1={about?.bio1}
           bio2={about?.bio2}
-          yearsExperience={about?.yearsExperience}
+          yearsExperience={about?.yearsExperience ?? undefined}
           videoWebm={about?.videoWebm}
           videoMp4={about?.videoMp4}
           videoPoster={about?.videoPoster}

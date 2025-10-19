@@ -4,5 +4,6 @@ import { Keystatic } from "@keystatic/core/ui";
 import config from "../../../../keystatic.config";
 
 export default function KeystaticPage() {
-  return <Keystatic config={config} />;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return <Keystatic config={config as any} />;
 }

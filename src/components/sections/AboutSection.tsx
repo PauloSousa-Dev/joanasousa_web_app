@@ -71,12 +71,15 @@ export default function AboutSection({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" as const },
     },
   };
 
   return (
-    <section id="about" className="py-24 md:py-32 bg-white relative overflow-hidden">
+    <section
+      id="about"
+      className="py-24 md:py-32 bg-white relative overflow-hidden"
+    >
       {/* Decorative Elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-[var(--color-primary)]/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl opacity-60" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[var(--color-secondary)]/5 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl opacity-60" />
@@ -131,7 +134,9 @@ export default function AboutSection({
                 <div className="w-full h-full flex items-center justify-center text-gray-400">
                   <div className="text-center">
                     <Award size={48} className="mx-auto mb-4" />
-                    <p className="text-sm">Adicionar vídeo ou foto profissional</p>
+                    <p className="text-sm">
+                      Adicionar vídeo ou foto profissional
+                    </p>
                   </div>
                 </div>
               </div>
@@ -140,7 +145,9 @@ export default function AboutSection({
             {/* Floating Stats Card */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+              animate={
+                inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }
+              }
               transition={{ delay: 0.6 }}
               className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-xl border border-primary"
             >
@@ -158,13 +165,9 @@ export default function AboutSection({
 
           {/* Content Side */}
           <motion.div variants={itemVariants} className="space-y-6">
-            <p className="text-gray-600 text-lg leading-relaxed">
-              {bio1}
-            </p>
+            <p className="text-gray-600 text-lg leading-relaxed">{bio1}</p>
 
-            <p className="text-gray-600 text-lg leading-relaxed">
-              {bio2}
-            </p>
+            <p className="text-gray-600 text-lg leading-relaxed">{bio2}</p>
 
             {/* Key Points */}
             <div className="space-y-4 pt-4">
@@ -177,7 +180,9 @@ export default function AboutSection({
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                  animate={
+                    inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                  }
                   transition={{ delay: 0.8 + index * 0.1 }}
                   className="flex items-center gap-3"
                 >
