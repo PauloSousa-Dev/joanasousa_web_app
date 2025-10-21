@@ -1,7 +1,18 @@
 import { createReader } from "@keystatic/core/reader";
+import { createGitHubReader } from "@keystatic/core/reader/github";
 import keystaticConfig from "../../keystatic.config";
 
-const reader = createReader(process.cwd(), keystaticConfig);
+// In production, use GitHub reader to access content via API
+// In development, use local reader to access filesystem content/
+const isDevelopment = process.env.NODE_ENV !== "production";
+
+const reader = isDevelopment
+  ? createReader(process.cwd(), keystaticConfig)
+  : createGitHubReader(keystaticConfig, {
+      repo: "PauloSousa-Dev/joanasousa_web_app",
+      ref: "main",
+      token: process.env.GITHUB_TOKEN,
+    });
 
 // Singletons
 export const getSiteSettings = () => reader.singletons.siteSettings.read();
