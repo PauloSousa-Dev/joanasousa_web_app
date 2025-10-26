@@ -5,8 +5,6 @@ import {
   getGallerySettings,
   getGalleryImages,
   getScheduleSettings,
-  getProgramsSettings,
-  getProgramItems,
   getContact,
   getTestimonials,
   getFeatures,
@@ -16,7 +14,6 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
-import ProgramsSection from "@/components/sections/ProgramsSection";
 import GallerySection from "@/components/sections/GallerySection";
 import ScheduleSection from "@/components/sections/ScheduleSection";
 import ContactSection from "@/components/sections/ContactSection";
@@ -32,8 +29,6 @@ export default async function Home() {
     gallerySettings,
     galleryImages,
     scheduleSettings,
-    programsSettings,
-    programItems,
     contact,
     testimonials,
     features,
@@ -45,21 +40,11 @@ export default async function Home() {
     getGallerySettings(),
     getGalleryImages(),
     getScheduleSettings(),
-    getProgramsSettings(),
-    getProgramItems(),
     getContact(),
     getTestimonials(),
     getFeatures(),
     getNavigation(),
   ]);
-
-  // Transform program items for component
-  const programs = programItems.map((item) => ({
-    title: item.entry.title ?? "",
-    description: item.entry.description ?? "",
-    icon: item.entry.icon,
-    benefits: [...item.entry.benefits],
-  }));
 
   // Transform gallery images for component
   const gallery = galleryImages
@@ -109,6 +94,7 @@ export default async function Home() {
           heroTitle={home?.heroTitle}
           heroSubtitle={home?.heroSubtitle}
           cta={home?.cta}
+          backgroundImage={home?.backgroundImage}
         />
         <AboutSection
           title={about?.title}
@@ -117,19 +103,11 @@ export default async function Home() {
           bio1={about?.bio1}
           bio2={about?.bio2}
           yearsExperience={about?.yearsExperience ?? undefined}
+          image={about?.image}
           videoWebm={about?.videoWebm}
           videoMp4={about?.videoMp4}
           videoPoster={about?.videoPoster}
           features={featuresData}
-        />
-        <ProgramsSection
-          title={programsSettings?.title}
-          subtitle={programsSettings?.subtitle}
-          ctaTitle={programsSettings?.ctaTitle}
-          ctaDescription={programsSettings?.ctaDescription}
-          ctaPrimaryText={programsSettings?.ctaPrimaryText}
-          ctaSecondaryText={programsSettings?.ctaSecondaryText}
-          programs={programs}
         />
         <GallerySection
           title={gallerySettings?.title}

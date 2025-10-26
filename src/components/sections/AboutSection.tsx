@@ -26,6 +26,7 @@ interface AboutSectionProps {
   bio1?: string;
   bio2?: string;
   yearsExperience?: number;
+  image?: string;
   videoWebm?: string;
   videoMp4?: string;
   videoPoster?: string;
@@ -48,6 +49,7 @@ export default function AboutSection({
   bio1 = "A minha missão é ajudar-te a alcançar o teu melhor eu, através de treinos personalizados, nutrição equilibrada e um acompanhamento que vai além do ginásio.",
   bio2 = "Acredito que cada pessoa é única e merece um plano adaptado às suas necessidades, objetivos e estilo de vida. Juntos, vamos criar uma versão mais forte, saudável e confiante de ti.",
   yearsExperience = 10,
+  image,
   videoWebm,
   videoMp4,
   videoPoster,
@@ -145,7 +147,7 @@ export default function AboutSection({
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
           {/* Image/Video Side */}
           <motion.div variants={itemVariants} className="relative">
-            {/* Vídeo (se disponível) ou Imagem Placeholder */}
+            {/* Vídeo (se disponível), ou Imagem, ou Placeholder */}
             {videoMp4 && videoPoster ? (
               <VideoPlayer
                 webmSrc={videoWebm}
@@ -155,6 +157,14 @@ export default function AboutSection({
                 autoPlayOnView={true}
                 className="aspect-[4/5] shadow-2xl"
               />
+            ) : image ? (
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                <img
+                  src={image}
+                  alt={title || "Foto Profissional"}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             ) : (
               <div className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden shadow-2xl">
                 {/* Placeholder - Replace with actual image or video */}

@@ -100,7 +100,7 @@ export default function ContactSection({
       href: facebook,
       color: "hover:text-blue-600",
     },
-  ];
+  ].filter((social) => social.href && social.href.trim() !== "");
 
   const containerVariants = {
     hidden: { opacity: 0 },

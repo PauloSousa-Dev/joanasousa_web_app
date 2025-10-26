@@ -59,7 +59,7 @@ export default function Footer({
             <h3 className="text-2xl font-bold mb-4">{siteName}</h3>
             <p className="text-gray-400 mb-6 max-w-md">{brandText}</p>
             <div className="flex gap-4">
-              {instagram && (
+              {instagram && instagram.trim() !== "" && (
                 <motion.a
                   href={instagram}
                   target="_blank"
@@ -71,7 +71,7 @@ export default function Footer({
                   <Instagram size={20} />
                 </motion.a>
               )}
-              {facebook && (
+              {facebook && facebook.trim() !== "" && (
                 <motion.a
                   href={facebook}
                   target="_blank"

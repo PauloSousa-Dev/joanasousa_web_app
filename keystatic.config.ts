@@ -70,6 +70,12 @@ export default config({
           label: "Texto do botão",
           defaultValue: "Contactar",
         }),
+        backgroundImage: fields.image({
+          label: "Imagem de Background (opcional)",
+          description: "Imagem de fundo para a hero section. Os gradientes e elementos decorativos ficam por cima.",
+          directory: "public/images/hero",
+          validation: { isRequired: false },
+        }),
       },
     }),
     about: singleton({
@@ -168,41 +174,41 @@ export default config({
         }),
       },
     }),
-    programs: singleton({
-      path: "content/programs-settings",
-      label: "Programas - Configurações",
-      format: { data: "json" },
-      schema: {
-        title: fields.text({
-          label: "Título",
-          defaultValue: "Programas de Treino",
-        }),
-        subtitle: fields.text({
-          label: "Subtítulo",
-          multiline: true,
-          defaultValue:
-            "Escolha o programa que melhor se adapta aos seus objetivos e estilo de vida. Todos incluem acompanhamento profissional dedicado.",
-        }),
-        ctaTitle: fields.text({
-          label: "CTA - Título",
-          defaultValue: "Pronto para Começar?",
-        }),
-        ctaDescription: fields.text({
-          label: "CTA - Descrição",
-          multiline: true,
-          defaultValue:
-            "Entre em contacto e agende a sua primeira sessão. Juntos vamos criar o plano perfeito para alcançar os seus objetivos.",
-        }),
-        ctaPrimaryText: fields.text({
-          label: "CTA - Botão Principal",
-          defaultValue: "Agendar Sessão",
-        }),
-        ctaSecondaryText: fields.text({
-          label: "CTA - Botão Secundário",
-          defaultValue: "Saber Mais",
-        }),
-      },
-    }),
+    // programs: singleton({
+    //   path: "content/programs-settings",
+    //   label: "Programas - Configurações",
+    //   format: { data: "json" },
+    //   schema: {
+    //     title: fields.text({
+    //       label: "Título",
+    //       defaultValue: "Programas de Treino",
+    //     }),
+    //     subtitle: fields.text({
+    //       label: "Subtítulo",
+    //       multiline: true,
+    //       defaultValue:
+    //         "Escolha o programa que melhor se adapta aos seus objetivos e estilo de vida. Todos incluem acompanhamento profissional dedicado.",
+    //     }),
+    //     ctaTitle: fields.text({
+    //       label: "CTA - Título",
+    //       defaultValue: "Pronto para Começar?",
+    //     }),
+    //     ctaDescription: fields.text({
+    //       label: "CTA - Descrição",
+    //       multiline: true,
+    //       defaultValue:
+    //         "Entre em contacto e agende a sua primeira sessão. Juntos vamos criar o plano perfeito para alcançar os seus objetivos.",
+    //     }),
+    //     ctaPrimaryText: fields.text({
+    //       label: "CTA - Botão Principal",
+    //       defaultValue: "Agendar Sessão",
+    //     }),
+    //     ctaSecondaryText: fields.text({
+    //       label: "CTA - Botão Secundário",
+    //       defaultValue: "Saber Mais",
+    //     }),
+    //   },
+    // }),
     contact: singleton({
       path: "content/contact",
       label: "Contacto",
@@ -272,45 +278,45 @@ export default config({
         }),
       },
     }),
-    programItems: collection({
-      label: "Programas de Treino",
-      path: "content/programs/*",
-      slugField: "title",
-      format: { data: "json" },
-      schema: {
-        title: fields.text({
-          label: "Título do Programa",
-          validation: { isRequired: true },
-        }),
-        description: fields.text({
-          label: "Descrição",
-          multiline: true,
-          validation: { isRequired: true },
-        }),
-        icon: fields.select({
-          label: "Ícone",
-          options: [
-            { label: "Dumbbell (Haltere)", value: "Dumbbell" },
-            { label: "HeartPulse (Coração)", value: "HeartPulse" },
-            { label: "User (Pessoa)", value: "User" },
-            { label: "Users (Grupo)", value: "Users" },
-            { label: "Activity (Atividade)", value: "Activity" },
-            { label: "Sparkles (Estrelas)", value: "Sparkles" },
-          ],
-          defaultValue: "Dumbbell",
-        }),
-        benefits: fields.array(fields.text({ label: "Benefício" }), {
-          label: "Benefícios",
-          itemLabel: (props) => props.value || "Novo benefício",
-          validation: { length: { min: 3, max: 3 } },
-        }),
-        order: fields.number({
-          label: "Ordem de Exibição",
-          defaultValue: 0,
-          validation: { isRequired: true },
-        }),
-      },
-    }),
+    // programItems: collection({
+    //   label: "Programas de Treino",
+    //   path: "content/programs/*",
+    //   slugField: "title",
+    //   format: { data: "json" },
+    //   schema: {
+    //     title: fields.text({
+    //       label: "Título do Programa",
+    //       validation: { isRequired: true },
+    //     }),
+    //     description: fields.text({
+    //       label: "Descrição",
+    //       multiline: true,
+    //       validation: { isRequired: true },
+    //     }),
+    //     icon: fields.select({
+    //       label: "Ícone",
+    //       options: [
+    //         { label: "Dumbbell (Haltere)", value: "Dumbbell" },
+    //         { label: "HeartPulse (Coração)", value: "HeartPulse" },
+    //         { label: "User (Pessoa)", value: "User" },
+    //         { label: "Users (Grupo)", value: "Users" },
+    //         { label: "Activity (Atividade)", value: "Activity" },
+    //         { label: "Sparkles (Estrelas)", value: "Sparkles" },
+    //       ],
+    //       defaultValue: "Dumbbell",
+    //     }),
+    //     benefits: fields.array(fields.text({ label: "Benefício" }), {
+    //       label: "Benefícios",
+    //       itemLabel: (props) => props.value || "Novo benefício",
+    //       validation: { length: { min: 3, max: 3 } },
+    //     }),
+    //     order: fields.number({
+    //       label: "Ordem de Exibição",
+    //       defaultValue: 0,
+    //       validation: { isRequired: true },
+    //     }),
+    //   },
+    // }),
     galleryImages: collection({
       label: "Galeria - Imagens",
       path: "content/gallery/*",

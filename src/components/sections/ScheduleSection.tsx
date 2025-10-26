@@ -206,54 +206,6 @@ export default function ScheduleSection({
           </motion.div>
         )}
 
-        {/* Programs Legend */}
-        <motion.div
-          variants={itemVariants}
-          className="mb-16 p-8 bg-gradient-to-r from-gray-50 to-white rounded-2xl border border-gray-200"
-        >
-          <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">
-            Programas Disponíveis
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-200">
-              <div className="text-2xl">🏋️</div>
-              <div className="text-sm font-medium text-gray-800">
-                Treino Funcional
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-200">
-              <div className="text-2xl">💪</div>
-              <div className="text-sm font-medium text-gray-800">
-                Treino Terapêutico
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-200">
-              <div className="text-2xl">🎯</div>
-              <div className="text-sm font-medium text-gray-800">
-                Treino Personalizado
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-200">
-              <div className="text-2xl">👥</div>
-              <div className="text-sm font-medium text-gray-800">
-                Treino em Grupo
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-200">
-              <div className="text-2xl">💻</div>
-              <div className="text-sm font-medium text-gray-800">
-                Treino Online
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-200">
-              <div className="text-2xl">✨</div>
-              <div className="text-sm font-medium text-gray-800">
-                Consultoria Fitness
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
         {/* Free Trial Section */}
         <motion.div
           variants={itemVariants}
