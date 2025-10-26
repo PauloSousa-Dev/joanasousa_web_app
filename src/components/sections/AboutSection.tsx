@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Image from "next/image";
 import {
   Award,
   Heart,
@@ -158,11 +159,13 @@ export default function AboutSection({
                 className="aspect-[4/5] shadow-2xl"
               />
             ) : image ? (
-              <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-                <img
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                <Image
                   src={image}
                   alt={title || "Foto Profissional"}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             ) : (

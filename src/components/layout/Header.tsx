@@ -63,7 +63,7 @@ export default function Header({ navItems = [] }: HeaderProps) {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [navItems]);
 
   const handleClick = (
     e: React.MouseEvent<HTMLAnchorElement>,

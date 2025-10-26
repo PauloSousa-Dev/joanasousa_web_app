@@ -6,13 +6,11 @@ import { MapPin } from "lucide-react";
 interface GoogleMapProps {
   latitude?: string;
   longitude?: string;
-  location?: string;
 }
 
 export default function GoogleMap({
   latitude = "38.7223",
   longitude = "-9.1393",
-  location = "Lisboa, Portugal",
 }: GoogleMapProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 

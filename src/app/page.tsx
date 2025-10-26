@@ -103,7 +103,7 @@ export default async function Home() {
           bio1={about?.bio1}
           bio2={about?.bio2}
           yearsExperience={about?.yearsExperience ?? undefined}
-          image={about?.image}
+          image={about?.image ?? undefined}
           videoWebm={about?.videoWebm}
           videoMp4={about?.videoMp4}
           videoPoster={about?.videoPoster}

@@ -224,7 +224,6 @@ export default function ContactSection({
               <GoogleMap
                 latitude={mapLatitude}
                 longitude={mapLongitude}
-                location={location}
               />
             </motion.div>
           </motion.div>
