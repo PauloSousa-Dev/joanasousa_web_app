@@ -1,8 +1,149 @@
 # Plano de Migração: Keystatic → Payload CMS + PostgreSQL
 
-> **STATUS: ✅ MIGRAÇÃO CONCLUÍDA COM SUCESSO**
-> Data: 18 de Janeiro de 2026
-> Todas as fases foram completadas. O sistema está em produção local.
+> **STATUS: ⏸️ PRONTO PARA DEPLOY EM PRODUÇÃO**
+>
+> **Última atualização:** 18 de Janeiro de 2026, 20:50
+>
+> **Fases Locais:** ✅ COMPLETAS (1-6)
+>
+> **Próximo Passo:** Deploy para Vercel (Fase 7)
+
+---
+
+## 🚀 COMO CONTINUAR (Próximos Passos)
+
+### Estado Atual
+- ✅ Migração local completa e funcionando
+- ✅ Build de produção testado e a funcionar
+- ✅ Git commit criado (commit 142c844)
+- ⏸️ **AGUARDA:** Configuração de variáveis de ambiente no Vercel
+- ⏸️ **AGUARDA:** Git push para trigger deploy
+
+### Passo a Passo para Continuar
+
+#### 1. Configurar Variáveis de Ambiente no Vercel
+
+Aceder ao dashboard Vercel → Projeto → **Settings** → **Environment Variables**
+
+Adicionar estas 3 variáveis (para Production, Preview e Development):
+
+```bash
+PAYLOAD_SECRET=4c3f760d501600eb687a2b1841901983108b43d65803c89b9630c33a1b886451
+
+DATABASE_URI=postgresql://neondb_owner:npg_KvNMbe0Isj7G@ep-bitter-sun-ag5h5yet-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require
+
+NEXT_PUBLIC_SERVER_URL=https://joanasousa.vercel.app
+```
+
+**Importante:**
+- Marcar as 3 checkboxes: Production, Preview, Development
+- Ajustar `NEXT_PUBLIC_SERVER_URL` se o domínio for diferente
+
+#### 2. Fazer Git Push
+
+```bash
+git push origin main
+```
+
+Este push vai automaticamente trigger o deploy no Vercel.
+
+#### 3. Verificar Deploy no Vercel
+
+- Aguardar que o build termine (5-10 minutos)
+- Verificar logs de build para erros
+- Testar o site em produção
+
+#### 4. Criar Primeiro Admin User em Produção
+
+```bash
+# Aceder ao admin em produção
+https://joanasousa.vercel.app/studio
+
+# Criar primeiro user:
+# Email: (teu email)
+# Password: (password segura)
+# Role: admin
+```
+
+#### 5. Testar Produção
+
+Verificar:
+- ✅ Homepage carrega
+- ✅ Admin acessível em `/studio`
+- ✅ Imagens aparecem corretamente
+- ✅ Conteúdo está todo presente
+
+#### 6. Criar User Editor para o Cliente
+
+No admin em produção:
+- Users → Create New
+- Email: (email do cliente)
+- Role: **editor** (não admin!)
+- Enviar credenciais ao cliente
+
+---
+
+## Informações Técnicas de Referência
+
+### URLs do Sistema
+
+| Ambiente | Frontend | Admin Panel | API Base |
+|----------|----------|-------------|----------|
+| **Local** | http://localhost:3001 | http://localhost:3001/studio | http://localhost:3001/api |
+| **Produção** | https://joanasousa.vercel.app | https://joanasousa.vercel.app/studio | https://joanasousa.vercel.app/api |
+
+### Credenciais da Base de Dados (Neon)
+
+```
+Região: Europe (eu-central-1)
+Versão PostgreSQL: 17
+Database: neondb
+Connection String: (ver variável DATABASE_URI acima)
+```
+
+### Git Status
+
+```
+Branch: main
+Último commit: 142c844 - "feat: Migrate from Keystatic to Payload CMS"
+Ficheiros modificados: 76 files changed, 10904 insertions(+), 8138 deletions(-)
+```
+
+### Comandos Úteis
+
+```bash
+# Desenvolvimento local
+npm run dev              # Inicia servidor (porta 3001 se 3000 ocupada)
+
+# Build e produção
+npm run build           # Build de produção
+npm start               # Servidor de produção
+
+# Payload
+npx payload migrate     # Executar migrações de DB (se necessário)
+
+# Git
+git status              # Ver estado atual
+git log --oneline -5    # Ver últimos commits
+```
+
+### Problemas Conhecidos e Soluções
+
+#### Imagens não aparecem
+- ✅ **Resolvido:** URLs convertidos de `/api/media/file/` para `/images/`
+- Ficheiros guardados em: `public/images/`
+- Extensões adicionadas automaticamente baseadas em mimeType
+
+#### Build errors
+- ✅ **Resolvido:** Removido `--turbopack` do script build
+- ✅ **Resolvido:** Corrigidos erros TypeScript (type assertions)
+- ✅ **Resolvido:** Removido ficheiro `src/lib/content.ts` antigo
+
+#### Hydration errors
+- ✅ **Resolvido:** Route groups isolados (website) e (payload)
+- Evita conflito de layouts aninhados
+
+---
 
 ## Resumo Executivo
 
